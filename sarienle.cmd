@@ -1,0 +1,23 @@
+@echo off
+setlocal
+rem Native MinGW compile (not live-tested on Windows in this milestone).
+gcc -O2 -std=c89 -pedantic -Wall -Wextra -Werror -o link386r4l.exe src\link386r4e.c
+if errorlevel 1 exit /b 1
+rem Supply the C/386 OBJ/LIB files in fixtures; run this from the project root.
+link386r4l.exe -o sarien-r4l.exe -d fixtures\sarien\sarien.def --stack=256000 ^
+ fixtures\sarien\agi.obj fixtures\sarien\agi_v2.obj fixtures\sarien\agi_v3.obj ^
+ fixtures\sarien\agi_v4.obj fixtures\sarien\checks.obj fixtures\sarien\cli.obj ^
+ fixtures\sarien\console.obj fixtures\sarien\cycle.obj fixtures\sarien\font.obj ^
+ fixtures\sarien\getopt.obj fixtures\sarien\getopt1.obj fixtures\sarien\global.obj ^
+ fixtures\sarien\graphics.obj fixtures\sarien\hirespic.obj fixtures\sarien\id.obj ^
+ fixtures\sarien\inv.obj fixtures\sarien\keyboard.obj fixtures\sarien\logic.obj ^
+ fixtures\sarien\lzw.obj fixtures\sarien\main.obj fixtures\sarien\menu.obj ^
+ fixtures\sarien\motion.obj fixtures\sarien\objects.obj fixtures\sarien\fileglob.obj ^
+ fixtures\sarien\op_cmd.obj fixtures\sarien\op_dbg.obj fixtures\sarien\op_test.obj ^
+ fixtures\sarien\patches.obj fixtures\sarien\path.obj fixtures\sarien\picture.obj ^
+ fixtures\sarien\picview.obj fixtures\sarien\rand.obj fixtures\sarien\savegame.obj ^
+ fixtures\sarien\silent.obj fixtures\sarien\sound.obj fixtures\sarien\sprite.obj ^
+ fixtures\sarien\text.obj fixtures\sarien\view.obj fixtures\sarien\words.obj ^
+ fixtures\sarien\dummy.obj fixtures\sarien\nullvid.obj fixtures\sarien\nothing.obj ^
+ fixtures\LIBC.LIB fixtures\OS2386.LIB
+exit /b %errorlevel%

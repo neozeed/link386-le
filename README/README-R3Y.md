@@ -1,0 +1,9 @@
+# LINK386 R3Y — contribution-order evidence (read-only)
+
+R3X is frozen unchanged. R3Y introduces `tests/r3y_order.py`, an independent original-LIBC OMF `LEDATA` versus Microsoft `hi.exe` LE image comparison. It collects multiple distinct 12-byte source-offset windows for each inferred `_TEXT` base and promotes only anchors with at least three supporting offsets and a strictly higher support count than the next candidate. It retains ambiguous or short modules as unresolved instead of forcing a placement.
+
+**Observed:** 22 strong object-specific `_TEXT` anchors from 22 modules, including `crt0.asm` at `0x11020`, `lseek.asm` at `0x11d3c`, `write.asm` at `0x11d84`, `heapgrow.c` at `0x202a0`, and `heapinit.c` at `0x204e4`. The ordered spans show a `_TEXT` family in both LE objects despite identical 32-bit use, CODE class, combine=2 and align=5 OMF segment properties. Some modules (`fmsghdr.asm`, `nmsghdr.asm`) share the same candidate base, so even strong byte fingerprints are **not** proof of distinct contribution boundaries. `stdargv.asm` has a strong best candidate but a weaker runner-up. The first strongly anchored code begins 0x1020 bytes after object 1's base; no mechanism for that leading region has been proved.
+
+**Still unresolved:** source OMF fixup-to-output LE fixup correspondence, full list of selected segment contributions, correct order for modules without distinctive windows, why specific `_TEXT` bytes occur in LE object 2, and any executable-generating placement algorithm. No relocation writeback or new executable is produced. In particular, do not interpret 22 anchor matches as 22 fully linked modules.
+
+Reproduce with `make verify-r3y` and view `r3y-order.txt`. The bundle includes original user-supplied OMF libraries, the hello reference image, prior R3X tools and their source; no external dependency beyond Python 3 and the existing C toolchain. To rebuild C link planners use `make link386r3g link386r3n`.

@@ -1,0 +1,33 @@
+# Linker-generated programs and intermediate objects
+*.exe
+*.o
+*.obj
+*.lib
+*.LIB
+*.bin
+*.map
+*.log
+*.zip
+*.sha256
+__pycache__/
+.pytest_cache/
+link386r1
+link386r2
+link386r3
+link386r3f
+link386r3g
+link386r3n
+link386r3o
+link386r4b
+link386r4c
+link386r4c_images
+link386r4c_relocate
+link386r4d
+link386r4e
+link386r4l
+# Do not accidentally commit the original Microsoft toolchain or binaries.
+fixtures/**
+!fixtures/README.md
+oracles/**
+build/**
+!build/r4l-command.sh
